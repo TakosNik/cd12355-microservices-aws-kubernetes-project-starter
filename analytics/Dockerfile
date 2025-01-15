@@ -1,9 +1,8 @@
-FROM python:3.10-slim-buster
+FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY . /app
-COPY requirements.txt .
+COPY analytics/ /app
 
 ENV DB_USERNAME=myuser
 ENV DB_PASSWORD=${POSTGRES_PASSWORD}
@@ -14,8 +13,7 @@ ENV DB_NAME=mydatabase
 RUN apt update -y
 RUN apt install build-essential libpq-dev -y
 RUN pip install --upgrade pip setuptools wheel
-
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5153
 
